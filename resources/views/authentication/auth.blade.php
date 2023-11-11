@@ -313,16 +313,17 @@
                     Login
                     <span class="underline"></span>
                 </button>
-                <form class="form form-login">
+                <form class="form form-login" method="post" action="{{route('login')}}">
+                    @csrf
                     <fieldset>
                         <legend>Please, enter your email and password for login.</legend>
                         <div class="input-block">
                             <label for="login-email">E-mail</label>
-                            <input id="login-email" type="email" required>
+                            <input id="login-email" type="email" name="email" required>
                         </div>
                         <div class="input-block">
                             <label foar="login-password">Password</label>
-                            <input id="login-password" type="password" required>
+                            <input id="login-password" type="password" name='password' required>
                         </div>
                     </fieldset>
                     <button type="submit" class="btn-login">Login</button>
@@ -334,7 +335,7 @@
                     <span class="underline"></span>
                 </button>
                 <form class="form form-signup" method="post" action="{{route('signup')}}">
-                   @csrf
+                    @csrf
                     <fieldset>
                         <legend>Please, enter your email, password and password confirmation for sign up.</legend>
                         <div class="input-block">

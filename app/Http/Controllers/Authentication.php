@@ -11,7 +11,8 @@ class Authentication extends Controller
 {
     //Signup action
 
-    public function signupAction(Request $request){
+    public function signupAction(Request $request)
+    {
 
         //Validating user data
 
@@ -24,54 +25,33 @@ class Authentication extends Controller
 
 
         User::create([
-            'name'=>'default_name',
-            'email'=>$request->email,
-            'password'=>Hash::make($request->password)
+            'name' => 'default_name',
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
         ]);
 
         // Takes email password from request :  
 
-        $credentials = $request->only('name','email','password');
+        $credentials = $request->only('name', 'email', 'password');
 
         //Login attempt to database
 
 
         Auth::attempt($credentials);
 
-        return redirect('auth')->with('email',$request->email);
-
+        return redirect('auth')->with('email', $request->email);
     }
 
-    
 
+    public function loginAction(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        if (Auth::attempt($credentials)) {
+            return redirect('dashboard');
+        };
+    }
 }
